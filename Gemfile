@@ -46,3 +46,7 @@ group :development do
   gem 'spring'
 end
 
+# css framework
+gem 'less-rails'
+gem 'twitter-bootstrap3-rails'
+
