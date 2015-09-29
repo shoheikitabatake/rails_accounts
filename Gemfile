@@ -47,6 +47,6 @@ group :development do
 end
 
 # css framework
-gem 'execjs'
+gem 'less-rails'
 gem 'twitter-bootstrap3-rails'
 
