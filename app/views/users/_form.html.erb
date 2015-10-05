@@ -8,19 +8,24 @@
   <div class="control-group">
     <%= f.label :password, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :password, :class => 'text_field' %>
+      <%= f.password_field :password, :class => 'password_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :grade, :class => 'control-label' %>
+    <%= f.label :password_confirmation, "Confirmation" %>
     <div class="controls">
-      <%= f.text_field :grade, :class => 'text_field' %>
+      <%= f.password_field :password_confirmation, :class => 'password_confirmation' %>
     </div>
   </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.hidden_field :grade, :class => 'hidden_field', :value => 2 %>
+    </div>
+  </div>
+  <br>
 
-  
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             users_path, :class => 'btn btn-default' %>
- 
+
 <% end %>
