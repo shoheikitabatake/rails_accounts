@@ -1,0 +1,2 @@
+module LossGroupsHelper
+end

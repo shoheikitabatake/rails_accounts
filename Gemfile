@@ -50,3 +50,8 @@ end
 gem 'less-rails'
 gem 'twitter-bootstrap3-rails'
 
+# authorization
+gem 'devise'
+gem 'devise-bootstrap-views'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
