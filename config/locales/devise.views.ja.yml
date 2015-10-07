@@ -17,13 +17,6 @@ ja:
         too_long: "は%{count}文字以下に設定して下さい。"
         invalid: "は有効でありません。"
         confirmation: "が内容とあっていません。"
-      models:
-        user:
-          attributes:
-            email:
-              taken: "the email address %{value} has already been registered"
-            password:
-              too_short: "the password is too short (minimum %{count} characters)"
   devise:
     confirmations:
       new:
