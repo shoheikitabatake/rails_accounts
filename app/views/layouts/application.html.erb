@@ -55,7 +55,7 @@
             <br>
             <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
             <% if user_signed_in? %> 
-              Logged in as <strong><%= current_user.email %></strong>.
+              <strong><%= current_user.email %></strong>.
               <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             <% else %>
@@ -81,6 +81,7 @@
           <% if alert %>
             <p class="alert alert-danger"><%= alert %></p>
           <% end %>
+          <%= devise_error_messages! %>
           <!-- end devise setting-->
 
           <%= yield %>
