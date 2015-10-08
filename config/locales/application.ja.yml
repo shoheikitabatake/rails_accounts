@@ -11,8 +11,8 @@ ja:
     new: ''
   activerecord:
     models:
-      asset_group: '資産グループ'
-      asset: '資産'
+      property_group: '資産グループ'
+      property: '資産'
       debt_group: '負債グループ'
       debt: '負債'
       profit_group: '収益グループ'
@@ -20,9 +20,9 @@ ja:
       loss_group: '損失グループ'
       loss: '損失'
     attributes:
-      asset_group:
+      property_group:
         name: '資産グループ'
-      asset:
+      property:
         group_id: '資産グループ'
         name: '資産'
         stock: '残額'

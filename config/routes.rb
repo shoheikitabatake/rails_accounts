@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :profit_groups
   resources :debts
   resources :debt_groups
-  resources :assets
-  resources :asset_groups
+  resources :properties
+  resources :property_groups
   get 'home/index'
 
   get 'home/show'
