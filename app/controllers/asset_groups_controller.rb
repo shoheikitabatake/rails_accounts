@@ -4,12 +4,16 @@ class AssetGroupsController < ApplicationController
   # GET /asset_groups
   # GET /asset_groups.json
   def index
-    @asset_groups = AssetGroup.all
+#    @asset_groups = AssetGroup.all
+    @asset_groups = AssetGroup.where( user_id: current_user.id )
   end
 
   # GET /asset_groups/1
   # GET /asset_groups/1.json
   def show
+    if is_invalid_user? ( @asset_group.user_id )
+      redirect_to root_path
+    end
   end
 
   # GET /asset_groups/new
@@ -19,6 +23,9 @@ class AssetGroupsController < ApplicationController
 
   # GET /asset_groups/1/edit
   def edit
+    if is_invalid_user? ( @asset_group.user_id )
+      redirect_to root_path
+    end
   end
 
   # POST /asset_groups
@@ -40,6 +47,10 @@ class AssetGroupsController < ApplicationController
   # PATCH/PUT /asset_groups/1
   # PATCH/PUT /asset_groups/1.json
   def update
+    if is_invalid_user? ( @asset_group.user_id )
+      redirect_to root_path
+    end
+
     respond_to do |format|
       if @asset_group.update(asset_group_params)
         format.html { redirect_to @asset_group, notice: 'Asset group was successfully updated.' }
@@ -54,6 +65,10 @@ class AssetGroupsController < ApplicationController
   # DELETE /asset_groups/1
   # DELETE /asset_groups/1.json
   def destroy
+    if is_invalid_user? ( @asset_group.user_id )
+      redirect_to root_path
+    end
+
     @asset_group.destroy
     respond_to do |format|
       format.html { redirect_to asset_groups_url, notice: 'Asset group was successfully destroyed.' }
