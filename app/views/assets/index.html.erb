@@ -1,28 +1,22 @@
 <%- model_class = Asset -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.singularize.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:group_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:stock) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @assets.each do |asset| %>
       <tr>
-        <td><%= link_to asset.id, asset_path(asset) %></td>
-        <td><%= asset.user_id %></td>
         <td><%= asset.group_id %></td>
         <td><%= asset.name %></td>
         <td><%= asset.stock %></td>
-        <td><%=l asset.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_asset_path(asset), :class => 'btn btn-default btn-xs' %>
