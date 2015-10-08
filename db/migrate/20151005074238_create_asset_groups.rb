@@ -1,6 +1,6 @@
-class CreateAssetGroups < ActiveRecord::Migration
+class CreatePropertyGroups < ActiveRecord::Migration
   def change
-    create_table :asset_groups do |t|
+    create_table :property_groups do |t|
       t.integer :user_id
       t.string :name
 

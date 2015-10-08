@@ -11,23 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005074557) do
-
-  create_table "asset_groups", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "assets", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.string   "name"
-    t.integer  "stock"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20151008045942) do
 
   create_table "debt_groups", force: :cascade do |t|
     t.integer  "user_id"
@@ -86,6 +70,22 @@ ActiveRecord::Schema.define(version: 20151005074557) do
     t.integer  "group_id"
     t.string   "name"
     t.integer  "budget"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.string   "name"
+    t.integer  "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "property_groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

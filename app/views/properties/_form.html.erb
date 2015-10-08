@@ -1,4 +1,4 @@
-<%= form_for @asset, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @property, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <div class="controls">
       <%= f.hidden_field :user_id, :class => 'hidden_field', :value => current_user.id %>
@@ -7,7 +7,7 @@
   <div class="control-group">
     <%= f.label :group_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :group_id, @asset_group.all, :id, :name, :class => 'f.collection_select' %>
+      <%= f.collection_select :group_id, @property_group.all, :id, :name, :class => 'f.collection_select' %>
     </div>
   </div>
   <div class="control-group">
@@ -27,6 +27,6 @@
 
   <%= f.submit t('.'+controller.action_name, :default => t("helpers.links."+controller.action_name) ), :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            assets_path, :class => 'btn btn-default' %>
+            properties_path, :class => 'btn btn-default' %>
 
 <% end %>
