@@ -5,6 +5,7 @@ class CreateProfits < ActiveRecord::Migration
       t.integer :group_id
       t.string :name
       t.integer :budget
+      t.integer :stock
 
       t.timestamps null: false
     end

@@ -4,7 +4,7 @@ class LossGroupsController < ApplicationController
   # GET /loss_groups
   # GET /loss_groups.json
   def index
-    @loss_groups = LossGroup.all
+    @loss_groups = LossGroup.where( user_id: current_user.id )
   end
 
   # GET /loss_groups/1
@@ -65,6 +65,11 @@ class LossGroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_loss_group
       @loss_group = LossGroup.find(params[:id])
+
+      # user_idが一致しているかチェック
+      if is_invalid_user? ( @loss_group.user_id )
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

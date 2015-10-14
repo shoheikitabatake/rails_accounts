@@ -59,8 +59,8 @@
               <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             <% else %>
-              <li><%= link_to "サインアップ", new_user_registration_path %></li>
-              <li><%= link_to "サインイン", new_user_session_path %></li>
+              <li><%= link_to "アカウント登録", new_user_registration_path %></li>
+              <li><%= link_to "ログイン", new_user_session_path %></li>
             <% end %>
           </ul>
 <!--
@@ -85,13 +85,18 @@
           <!-- end devise setting-->
 
           <%= yield %>
+
+          <br>
+          <br>
+
         </div>
+
         <div class="col-lg-3">
           <div class="well sidebar-nav">
             <h3>Sidebar</h3>
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
+              <li><%= link_to t('helpers.titles.setting'), setting_index_path %></li>
               <li><%= link_to "Link2", "/path2"  %></li>
               <li><%= link_to "Link3", "/path3"  %></li>
             </ul>

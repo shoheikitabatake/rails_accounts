@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   resources :properties
   resources :property_groups
   get 'home/index'
-
   get 'home/show'
+  get 'setting/index'
 
   devise_for :users
   resources :users

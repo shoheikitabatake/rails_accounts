@@ -1,15 +1,17 @@
 class ProfitsController < ApplicationController
   before_action :set_profit, only: [:show, :edit, :update, :destroy]
+  before_action :set_property_group, only: [:new, :edit]
 
   # GET /profits
   # GET /profits.json
   def index
-    @profits = Profit.all
+    @profits = Profit.where( user_id: current_user.id ).order( :group_id )
   end
 
   # GET /profits/1
   # GET /profits/1.json
   def show
+    @profit_group = ProfitGroup.find( @profit.group_id )
   end
 
   # GET /profits/new
@@ -65,10 +67,19 @@ class ProfitsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_profit
       @profit = Profit.find(params[:id])
+
+      # user_idが一致しているかチェック
+      if is_invalid_user? ( @profit.user_id )
+        redirect_to root_path
+      end
+    end
+
+    def set_property_group
+      @profit_group = ProfitGroup.where( user_id: current_user.id )
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profit_params
-      params.require(:profit).permit(:user_id, :group_id, :name, :budget)
+      params.require(:profit).permit(:user_id, :group_id, :name, :budget, :stock)
     end
 end

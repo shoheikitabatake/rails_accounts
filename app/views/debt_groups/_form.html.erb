@@ -1,8 +1,7 @@
 <%= form_for @debt_group, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :user_id, :class => 'text_field' %>
+      <%= f.hidden_field :user_id, :class => 'hidden_field', :value => current_user.id %>
     </div>
   </div>
   <div class="control-group">
@@ -12,9 +11,10 @@
     </div>
   </div>
 
-  
-  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <br>
+
+  <%= f.submit t('.'+controller.action_name, :default => t("helpers.links."+controller.action_name) ), :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             debt_groups_path, :class => 'btn btn-default' %>
- 
+
 <% end %>

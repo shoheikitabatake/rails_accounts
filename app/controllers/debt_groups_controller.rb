@@ -4,7 +4,7 @@ class DebtGroupsController < ApplicationController
   # GET /debt_groups
   # GET /debt_groups.json
   def index
-    @debt_groups = DebtGroup.all
+    @debt_groups = DebtGroup.where( user_id: current_user.id )
   end
 
   # GET /debt_groups/1
@@ -65,6 +65,11 @@ class DebtGroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_debt_group
       @debt_group = DebtGroup.find(params[:id])
+
+      # user_idが一致しているかチェック
+      if is_invalid_user? ( @debt_group.user_id )
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

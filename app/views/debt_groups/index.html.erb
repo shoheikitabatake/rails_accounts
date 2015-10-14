@@ -1,24 +1,18 @@
 <%- model_class = DebtGroup -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.singularize.titleize %> <%=t 'helpers.titles.expenses' %>一覧</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @debt_groups.each do |debt_group| %>
       <tr>
-        <td><%= link_to debt_group.id, debt_group_path(debt_group) %></td>
-        <td><%= debt_group.user_id %></td>
         <td><%= debt_group.name %></td>
-        <td><%=l debt_group.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_debt_group_path(debt_group), :class => 'btn btn-default btn-xs' %>

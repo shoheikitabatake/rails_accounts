@@ -4,7 +4,7 @@ class ProfitGroupsController < ApplicationController
   # GET /profit_groups
   # GET /profit_groups.json
   def index
-    @profit_groups = ProfitGroup.all
+    @profit_groups = ProfitGroup.where( user_id: current_user.id )
   end
 
   # GET /profit_groups/1
@@ -65,6 +65,11 @@ class ProfitGroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_profit_group
       @profit_group = ProfitGroup.find(params[:id])
+
+      # user_idが一致しているかチェック
+      if is_invalid_user? ( @profit_group.user_id )
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

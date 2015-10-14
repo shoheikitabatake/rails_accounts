@@ -7,36 +7,45 @@ ja:
       cancel:  'キャンセル'
       back:    '戻る'
       confirm: '削除してよろしいですか'
-  titles:
-    new: ''
+    titles:
+      setting: '設定'
+      expenses: '費目'
+      accounts: '勘定科目'
+      profile: 'プロフィール'
   activerecord:
     models:
-      property_group: '資産グループ'
+      property_group: '資産'
       property: '資産'
-      debt_group: '負債グループ'
+      debt_group: '負債'
       debt: '負債'
-      profit_group: '収益グループ'
-      profit: '収益'
-      loss_group: '損失グループ'
-      loss: '損失'
+      profit_group: '収入'
+      profit: '収入'
+      loss_group: '支出'
+      loss: '支出'
     attributes:
       property_group:
-        name: '資産グループ'
+        name: '費目'
       property:
-        group_id: '資産グループ'
-        name: '資産'
+        group_id: '費目'
+        name: '勘定科目'
         stock: '残額'
       debt_group:
-        name: '負債グループ'
+        name: '費目'
       debt:
-        group_id: '負債グループ'
-        name: '負債'
+        group_id: '費目'
+        name: '勘定科目'
         stock: '残額'
       profit_group:
-        name: '収益グループ'
+        name: '費目'
       profit:
-        name: '収益'
+        group_id: '費目'
+        name: '勘定科目'
+        budget: '予算'
+        stock: '積立金額'
       loss_group:
-        name: '損失グループ'
+        name: '費目'
       loss:
-        name: '損失'
+        group_id: '費目'
+        name: '勘定科目'
+        budget: '予算'
+        stock: '積立金額'

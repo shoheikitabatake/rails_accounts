@@ -1,15 +1,17 @@
 class DebtsController < ApplicationController
   before_action :set_debt, only: [:show, :edit, :update, :destroy]
+  before_action :set_property_group, only: [:new, :edit]
 
   # GET /debts
   # GET /debts.json
   def index
-    @debts = Debt.all
+    @debts = Debt.where( user_id: current_user.id ).order( :group_id )
   end
 
   # GET /debts/1
   # GET /debts/1.json
   def show
+    @debt_group = DebtGroup.find( @debt.group_id )
   end
 
   # GET /debts/new
@@ -65,6 +67,15 @@ class DebtsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_debt
       @debt = Debt.find(params[:id])
+
+      # user_idが一致しているかチェック
+      if is_invalid_user? ( @debt.user_id )
+        redirect_to root_path
+      end
+    end
+
+    def set_property_group
+      @debt_group = DebtGroup.where( user_id: current_user.id )
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
