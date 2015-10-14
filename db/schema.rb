@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008045942) do
+ActiveRecord::Schema.define(version: 20151009041928) do
 
   create_table "debt_groups", force: :cascade do |t|
     t.integer  "user_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20151008045942) do
     t.integer  "budget"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "stock"
   end
 
   create_table "profit_groups", force: :cascade do |t|
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20151008045942) do
     t.integer  "budget"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "stock"
   end
 
   create_table "properties", force: :cascade do |t|

@@ -1,0 +1,62 @@
+<!-- 科目 -->
+<div class="page-header">
+  <h1><%=t '.title', :default => t("helpers.titles.accounts") %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>カテゴリ</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <!-- 資産 -->
+      <td><%= t '.title', :default => t("activerecord.models.property") %></td>
+      <td>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.property.group_id") + 'の' + t("helpers.links.edit")),
+                    property_groups_path, :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.property.name") + 'の' + t("helpers.links.edit")),
+                    properties_path, :class => 'btn btn-default btn-xs' %>
+      </td>
+    </tr>
+    <tr>
+      <!-- 負債 -->
+      <td><%= t '.title', :default => t("activerecord.models.debt") %></td>
+      <td>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.debt.group_id") + 'の' + t("helpers.links.edit")),
+                    debt_groups_path, :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.debt.name") + 'の' + t("helpers.links.edit")),
+                    debts_path, :class => 'btn btn-default btn-xs' %>
+      </td>
+    </tr>
+    <tr>
+      <!-- 収入 -->
+      <td><%= t '.title', :default => t("activerecord.models.profit") %></td>
+      <td>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.profit.group_id") + 'の' + t("helpers.links.edit")),
+                    profit_groups_path, :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.profit.name") + 'の' + t("helpers.links.edit")),
+                    profits_path, :class => 'btn btn-default btn-xs' %>
+      </td>
+    </tr>
+    <tr>
+      <!-- 費用 -->
+      <td><%= t '.title', :default => t("activerecord.models.loss") %></td>
+      <td>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.loss.group_id") + 'の' + t("helpers.links.edit")),
+                    loss_groups_path, :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.edit', :default => t("activerecord.attributes.loss.name") + 'の' + t("helpers.links.edit")),
+                    losses_path, :class => 'btn btn-default btn-xs' %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- プロフィール -->
+<div class="page-header">
+  <h1><%=t '.title', :default => t("helpers.titles.profile") %></h1>
+</div>
+<%= link_to t('.edit', :default => t("helpers.titles.profile") + "の" + t("helpers.links.edit")),
+      edit_user_registration_path, :class => 'btn btn-default btn-xs' %>
+

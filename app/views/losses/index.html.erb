@@ -1,28 +1,24 @@
 <%- model_class = Loss -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.singularize.titleize %> <%=t 'helpers.titles.accounts' %>一覧</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:group_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:budget) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:stock) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @losses.each do |loss| %>
       <tr>
-        <td><%= link_to loss.id, loss_path(loss) %></td>
-        <td><%= loss.user_id %></td>
-        <td><%= loss.group_id %></td>
+        <td><%= LossGroup.find( loss.group_id ).name %></td>
         <td><%= loss.name %></td>
         <td><%= loss.budget %></td>
-        <td><%=l loss.created_at %></td>
+        <td><%= loss.stock %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_loss_path(loss), :class => 'btn btn-default btn-xs' %>
