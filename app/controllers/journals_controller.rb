@@ -9,7 +9,7 @@ class JournalsController < ApplicationController
     @journals = Journal.where(
       user_id: current_user.id,
       trade_date: Date.new( @year, @month, 1 )..Date.new( @year, @month, -1 )
-    ).order(:trade_date)
+    ).order("trade_date DESC")
   end
 
   # GET /journals/1
