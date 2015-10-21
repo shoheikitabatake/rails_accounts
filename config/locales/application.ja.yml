@@ -12,6 +12,14 @@ ja:
       expenses: '費目'
       accounts: '勘定科目'
       profile: 'プロフィール'
+      journal: '仕訳'
+      journallog: '取引履歴'
+      pay: '支払'
+      income: '収入'
+      loan: '借入'
+      repay: '返済'
+      move: '資産の移動'
+      payloan: '支払（クレカ）'
   activerecord:
     models:
       property_group: '資産'
@@ -22,6 +30,7 @@ ja:
       profit: '収入'
       loss_group: '支出'
       loss: '支出'
+      journal: '仕訳'
     attributes:
       property_group:
         name: '費目'
@@ -49,3 +58,9 @@ ja:
         name: '勘定科目'
         budget: '予算'
         stock: '積立金額'
+      journal:
+        debit_id: '借方'
+        credit_id: '貸方'
+        amount: '取引金額'
+        trade_date: '取引日'
+        memo: 'メモ'

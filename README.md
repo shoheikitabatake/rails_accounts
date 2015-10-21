@@ -1,65 +1,47 @@
 # rails_accounts
 
-######ブランチ命名規則
+######ファイル生成
 
-|　| 命名規則 | 役割 |
-|:-----------|:------------:|:------------:|:------------:|
-| 統合ブランチ | master / develop | トピックブランチの生成、合流 |
-| トピックブランチ | feat(ure)-{説明}-{(#)チケット番号} | 新規機能 |
-| トピックブランチ | (hot)fix-{説明}-{(#)チケット番号} | （重大な）改修 |
-| トピックブランチ | release-{説明}-{(#)チケット番号} | リリース準備用 |
-
-
-######コミットメッセージの規則
-| 行数 | 内容 |
-|:-----------|:------------:|
-| １行目 | [feature/fix/release]要約 {#チケット番号} |
-| ２行目 | 空白 |
-| ３行目 | 本文 |
-
-
-######Github-flow
-
-+ masterブランチは常にデプロイ可能の状態にする
-+ merge後はただちにデプロイする
-+ ブランチ名は説明的な名前をつける
-+ 開発ブランチは定期的にmasterからpull、remoteにpushを行う
- + 競合防止
- + localだけの保存をしない。ログを残す。戻れるようにする。という目的
-+ フィードバックが欲しい時はpull requestを作成する
- + merge不要の目印として、[WIP]を付す（work in progress）
- + 小さな単位でプルリクを作成~~し、レビューを容易にする~~
-+ ~~pull requestは第三者のレビューを必須とする~~
-+ マスターブランチへのコミット禁止
-+ マージ者はマージ後ブランチ削除をする
- + リモートリポジトリに余計なブランチを残さない
- + ブランチを雑タスクに流用しない
-
-
-######レビューコメントルール
-`[prefix]コメント`としてコメントをつけること
-
-| prefix | 意味 |
-|:-----------|:------------:|
-| [MUST] | 重要。必ず修正すること。 |
-| [IMO] | in my onpinion。私だったらこう書くけど参考にどう？ |
-| [nits] | pick nits。インデントミスなど、細かな指摘。 |
-
-
-######ブランチの利用フロー
+MVC作成
 ```
-# 開発フロー
-1. リリースバージョンを設定したチケットを作成（ver2.2、チケット番号2501だとする。）
-2. git branch release2.2-hoge-#2501
-3. git branch fix-hoge1-#4192 # リリースバージョン内のチケットのひとつ
-4. git commit -m '[fix]こんなことなおしたよ #4192'
-5. git push origin fix-hoge1-#4192
-6. release2.2-hoge-#2501にプルリクエスト
-7. レビューしてマージ
-8. 3〜7を繰り返す
-
-# リリースフロー
-9. リリース項目が揃ったらmasterへプルリクエスト
-10. マージ
-11. masterブランチからデプロイ作業
+$ rails g scaffold post uid:integer type:string post_date:datetime
+# DBをマイグレーション
+$ rake db:migrate
 ```
+
+VC作成（テーブルは不要の場合）
+```
+$ rails g controller post
+# 作成したアクションにrouteを設定
+$ vi config/routes.rb
++  get 'post/index'
+
+```
+
+######bootstrap適用
+```
+$ rails g bootstrap:themed Posts -f
+```
+
+######ルーティングの確認
+```
+$ rake routes
+```
+
+######テーブル構造変更
+型変更
+```
+$ rails g migration change_datatype_{column}_of_{table}
+  def change
+    # [形式] change_column(テーブル名, カラム名, データタイプ, オプション)
+    change_column :{table}, :{column}, :{型}
+$ rake db:migrate
+```
+
+カラム名変更
+```
+$ rails g migration rename_{column}_column_to_{table}
+  def change
+    # [形式] rename_column(テーブル名, 変更前カラム名, 変更後カラム名)
+    rename_column :{table}, :{変更前カラム名}, :{変更後カラム名}
+$ rake db:migrate
