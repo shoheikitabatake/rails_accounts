@@ -91,17 +91,31 @@
 
         </div>
 
-        <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <h3>Sidebar</h3>
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to t('helpers.titles.setting'), setting_index_path %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+        <% if user_signed_in? %> 
+          <div class="col-lg-3">
+            <div class="well sidebar-nav">
+              <h3>メニュー</h3>
+              <ul class="nav nav-list">
+                <li>
+                  <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    <%= t('helpers.titles.journal') %>入力
+                  </a>
+                <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+                  <div class="accordion-inner">
+                    <%= link_to t('helpers.titles.pay'), new_journal_path( t: Journal::JOURNAL_TYPE_PAY ) %>
+                    <%= link_to t('helpers.titles.payloan'), new_journal_path( t: Journal::JOURNAL_TYPE_PAYLOAN ) %>
+                    <%= link_to t('helpers.titles.income'), new_journal_path( t: Journal::JOURNAL_TYPE_INCOME ) %>
+                    <%= link_to t('helpers.titles.loan'), new_journal_path( t: Journal::JOURNAL_TYPE_LOAN ) %>
+                    <%= link_to t('helpers.titles.repay'), new_journal_path( t: Journal::JOURNAL_TYPE_REPAY ) %>
+                    <%= link_to t('helpers.titles.move'), new_journal_path( t: Journal::JOURNAL_TYPE_MOVE ) %>
+                  </div>
+                </div>
+                </li>
+                <li><%= link_to t('helpers.titles.journallog'), journals_path %></li>
+                <li><%= link_to t('helpers.titles.setting'), setting_index_path %></li>
+              </ul>
+          </div><!--/span-->
+        <% end %>
       </div><!--/row-->
 
       <footer>

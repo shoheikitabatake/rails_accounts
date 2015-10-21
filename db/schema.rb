@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009041928) do
+ActiveRecord::Schema.define(version: 20151020112334) do
 
   create_table "debt_groups", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(version: 20151009041928) do
     t.string   "debit_type"
     t.integer  "debit_id"
     t.datetime "date"
+    t.string   "memo"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "debit_type"
+    t.integer  "debit_id"
+    t.integer  "credit_type"
+    t.integer  "credit_id"
+    t.integer  "amount"
+    t.date     "trade_date"
     t.string   "memo"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

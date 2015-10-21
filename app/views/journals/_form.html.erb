@@ -1,0 +1,54 @@
+<%= form_for @journal, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.hidden_field :user_id, :class => 'hidden_field', :value => current_user.id %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.hidden_field :debit_type, :class => 'hidden_field', :value => @debit_type %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :debit_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= select_tag "debit_id", grouped_options_for_select( @debits ) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.hidden_field :credit_type, :class => 'hidden_field', :value => @credit_type %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :credit_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= select_tag "credit_id", grouped_options_for_select( @credits ) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :amount, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :trade_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_field :trade_date, :class => 'date_field', :value => Time.now.strftime('%Y-%m-%d') %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :memo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :memo, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <br>
+
+  <%= f.submit t('.'+controller.action_name, :default => t("helpers.links."+controller.action_name) ), :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            journals_path, :class => 'btn btn-default' %>
+
+<% end %>

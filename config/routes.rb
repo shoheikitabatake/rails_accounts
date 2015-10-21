@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :journals
   resources :losses
   resources :profits
   resources :loss_groups
@@ -7,14 +8,12 @@ Rails.application.routes.draw do
   resources :debt_groups
   resources :properties
   resources :property_groups
-  get 'home/index'
-  get 'home/show'
   get 'setting/index'
 
   devise_for :users
   resources :users
 
-  root to: 'home#index'
+  root to: 'journals#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

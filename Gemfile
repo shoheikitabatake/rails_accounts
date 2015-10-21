@@ -49,6 +49,8 @@ end
 # css framework
 gem 'less-rails'
 gem 'twitter-bootstrap3-rails'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 
 # authorization
 gem 'devise'
