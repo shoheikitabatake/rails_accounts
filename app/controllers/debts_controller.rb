@@ -11,7 +11,6 @@ class DebtsController < ApplicationController
   # GET /debts/1
   # GET /debts/1.json
   def show
-    @debt_group = DebtGroup.find( @debt.group_id )
   end
 
   # GET /debts/new

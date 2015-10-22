@@ -11,7 +11,6 @@ class ProfitsController < ApplicationController
   # GET /profits/1
   # GET /profits/1.json
   def show
-    @profit_group = ProfitGroup.find( @profit.group_id )
   end
 
   # GET /profits/new

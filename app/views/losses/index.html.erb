@@ -15,7 +15,7 @@
   <tbody>
     <% @losses.each do |loss| %>
       <tr>
-        <td><%= LossGroup.find( loss.group_id ).name %></td>
+        <td><%= loss.loss_group.name %></td>
         <td><%= loss.name %></td>
         <td><%= loss.budget %></td>
         <td><%= loss.stock %></td>

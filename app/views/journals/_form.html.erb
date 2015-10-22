@@ -12,7 +12,7 @@
   <div class="control-group">
     <%= f.label :debit_id, :class => 'control-label' %>
     <div class="controls">
-      <%= select_tag "debit_id", grouped_options_for_select( @debits ) %>
+      <%= select_tag "debit_id", grouped_options_for_select( @debits, @journal.debit_id ) %>
     </div>
   </div>
   <div class="control-group">
@@ -23,7 +23,7 @@
   <div class="control-group">
     <%= f.label :credit_id, :class => 'control-label' %>
     <div class="controls">
-      <%= select_tag "credit_id", grouped_options_for_select( @credits ) %>
+      <%= select_tag "credit_id", grouped_options_for_select( @credits, @journal.credit_id ) %>
     </div>
   </div>
   <div class="control-group">

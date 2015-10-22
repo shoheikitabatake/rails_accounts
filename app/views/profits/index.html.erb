@@ -15,7 +15,7 @@
   <tbody>
     <% @profits.each do |profit| %>
       <tr>
-        <td><%= ProfitGroup.find( profit.group_id ).name %></td>
+        <td><%= profit.profit_group.name %></td>
         <td><%= profit.name %></td>
         <td><%= profit.budget %></td>
         <td><%= profit.stock %></td>

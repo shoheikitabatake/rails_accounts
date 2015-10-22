@@ -5,7 +5,7 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:group_id) %>:</strong></dt>
-  <dd><%= @loss.group_id %></dd>
+  <dd><%= @loss.loss_group.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @loss.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:budget) %>:</strong></dt>

@@ -14,7 +14,7 @@
   <tbody>
     <% @properties.each do |property| %>
       <tr>
-        <td><%= PropertyGroup.find( property.group_id ).name %></td>
+        <td><%= property.property_group.name %></td>
         <td><%= property.name %></td>
         <td><%= property.stock %></td>
         <td>
