@@ -116,10 +116,10 @@
                 <li><%= link_to t('helpers.titles.journallog'), journals_path %></li>
                 <!-- 月次集計 -->
                 <li>
-                  <a data-toggle="collapse" data-parent="#accordion2" href="#collapseMonthlyTotal">
-                    <%= t('helpers.titles.monthly_total') %>
+                  <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTotal">
+                    <%= t('helpers.titles.total') %>
                   </a>
-                <div id="collapseMonthlyTotal" class="accordion-body collapse" style="height: 0px;">
+                <div id="collapseTotal" class="accordion-body collapse" style="height: 0px;">
                   <div class="accordion-inner">
                     <%= link_to t('helpers.titles.balance_sheet'), new_journal_path( t: Journal::JOURNAL_TYPE_PAY ) %>
                     <%= link_to t('helpers.titles.profit_loss_statement'), new_journal_path( t: Journal::JOURNAL_TYPE_PAYLOAN ) %>

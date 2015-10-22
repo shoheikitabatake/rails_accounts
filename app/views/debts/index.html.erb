@@ -14,7 +14,7 @@
   <tbody>
     <% @debts.each do |debt| %>
       <tr>
-        <td><%= DebtGroup.find( debt.group_id ).name %></td>
+        <td><%= debt.debt_group.name %></td>
         <td><%= debt.name %></td>
         <td><%= debt.stock %></td>
         <td>

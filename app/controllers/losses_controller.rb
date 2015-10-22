@@ -11,7 +11,6 @@ class LossesController < ApplicationController
   # GET /losses/1
   # GET /losses/1.json
   def show
-    @loss_group = LossGroup.find( @loss.group_id )
   end
 
   # GET /losses/new

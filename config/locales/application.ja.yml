@@ -20,9 +20,9 @@ ja:
       repay: '返済'
       move: '資産の移動'
       payloan: '支払（クレカ）'
-      monthly_total: '月次集計'
+      total: '集計'
       balance_sheet: '残高'
-      profit_loss_statement: '収支'
+      profit_loss_statement: '月次収支'
 
   activerecord:
     models:

@@ -11,7 +11,6 @@ class PropertiesController < ApplicationController
   # GET /properties/1
   # GET /properties/1.json
   def show
-    @property_group = PropertyGroup.find( @property.group_id )
   end
 
   # GET /properties/new
