@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020112334) do
+ActiveRecord::Schema.define(version: 20151022073845) do
 
   create_table "debt_groups", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 20151020112334) do
     t.integer  "user_id"
     t.integer  "group_id"
     t.string   "name"
-    t.integer  "stock"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "stock",      default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "flows", force: :cascade do |t|
@@ -66,10 +66,10 @@ ActiveRecord::Schema.define(version: 20151020112334) do
     t.integer  "user_id"
     t.integer  "group_id"
     t.string   "name"
-    t.integer  "budget"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "stock"
+    t.integer  "budget",     default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "stock",      default: 0, null: false
   end
 
   create_table "profit_groups", force: :cascade do |t|
@@ -83,19 +83,19 @@ ActiveRecord::Schema.define(version: 20151020112334) do
     t.integer  "user_id"
     t.integer  "group_id"
     t.string   "name"
-    t.integer  "budget"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "stock"
+    t.integer  "budget",     default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "stock",      default: 0, null: false
   end
 
   create_table "properties", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
     t.string   "name"
-    t.integer  "stock"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "stock",      default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "property_groups", force: :cascade do |t|

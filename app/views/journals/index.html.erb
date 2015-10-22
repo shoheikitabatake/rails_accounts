@@ -1,6 +1,6 @@
 <%- model_class = Journal -%>
-<%= setYears %><br />
-<%= setMonths( @year ) %>
+<%= setYears( @year ) %><br />
+<%= setMonths( @year, @month ) %>
 
 <div class="page-header">
   <h1><%=t '.title', :default => "#{@year}年#{@month}月の取引履歴" %></h1>
@@ -20,8 +20,8 @@
     <% @journals.each do |journal| %>
       <tr>
         <td><%= journal.trade_date %></td>
-        <td><%= journal.getAccountType( journal.debit_type, journal.debit_id ) %></td>
-        <td><%= journal.getAccountType( journal.credit_type, journal.credit_id ) %></td>
+        <td><%= journal.getAccount( journal.debit_type, journal.debit_id ).name %></td>
+        <td><%= journal.getAccount( journal.credit_type, journal.credit_id ).name %></td>
         <td><%= journal.amount %></td>
         <td><%= journal.memo %></td>
         <td>

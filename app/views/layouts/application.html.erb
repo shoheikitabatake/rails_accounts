@@ -96,11 +96,12 @@
             <div class="well sidebar-nav">
               <h3>メニュー</h3>
               <ul class="nav nav-list">
+                <!-- 仕訳入力 -->
                 <li>
-                  <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  <a data-toggle="collapse" data-parent="#accordion2" href="#collapseJournal">
                     <%= t('helpers.titles.journal') %>入力
                   </a>
-                <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+                <div id="collapseJournal" class="accordion-body collapse" style="height: 0px;">
                   <div class="accordion-inner">
                     <%= link_to t('helpers.titles.pay'), new_journal_path( t: Journal::JOURNAL_TYPE_PAY ) %>
                     <%= link_to t('helpers.titles.payloan'), new_journal_path( t: Journal::JOURNAL_TYPE_PAYLOAN ) %>
@@ -111,18 +112,32 @@
                   </div>
                 </div>
                 </li>
+                <!-- 取引履歴 -->
                 <li><%= link_to t('helpers.titles.journallog'), journals_path %></li>
+                <!-- 月次集計 -->
+                <li>
+                  <a data-toggle="collapse" data-parent="#accordion2" href="#collapseMonthlyTotal">
+                    <%= t('helpers.titles.monthly_total') %>
+                  </a>
+                <div id="collapseMonthlyTotal" class="accordion-body collapse" style="height: 0px;">
+                  <div class="accordion-inner">
+                    <%= link_to t('helpers.titles.balance_sheet'), new_journal_path( t: Journal::JOURNAL_TYPE_PAY ) %>
+                    <%= link_to t('helpers.titles.profit_loss_statement'), new_journal_path( t: Journal::JOURNAL_TYPE_PAYLOAN ) %>
+                  </div>
+                </div>
+                </li>
+                <!-- 設定 -->
                 <li><%= link_to t('helpers.titles.setting'), setting_index_path %></li>
               </ul>
           </div><!--/span-->
         <% end %>
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; 2015 shohei kitabatake some rights reserved.</p>
-      </footer>
-
     </div> <!-- /container -->
+
+    <footer>
+      <p>&copy; 2015 shohei kitabatake some rights reserved.</p>
+    </footer>
 
   </body>
 </html>
