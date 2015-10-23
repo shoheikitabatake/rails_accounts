@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :properties
   resources :property_groups
   get 'setting/index'
+  get 'book/balance_sheet'
+  get 'book/profit_loss_statement'
 
   devise_for :users
   resources :users
