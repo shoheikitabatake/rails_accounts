@@ -1,0 +1,115 @@
+<div class="page-header">
+  <h1><%= t "helpers.titles.balance_sheet" %></h1>
+</div>
+
+<table class='table_inline' cellpadding="20">
+  <!-- 資産項目残高表 -->
+  <tr>
+    <td>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= t "activerecord.models.property" %></th>
+            <th><%= t "activerecord.attributes.property.stock" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @properties.each do |property| %>
+            <tr>
+              <td><%= property.name %></td>
+              <td><%= property.stock %></td>
+            </tr>
+          <% end %>
+          <tr class='tr_sum'>
+            <td><b>総<%= t "activerecord.attributes.property.stock" %></b></td>
+            <td><b><%= @properties.sum( :stock ) %></b></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+
+  <!-- 負債項目残高表 -->
+    <td>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= t "activerecord.models.debt" %></th>
+            <th><%= t "activerecord.attributes.debt.stock" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @debts.each do |debt| %>
+            <tr>
+              <td><%= debt.name %></td>
+              <td><%= debt.stock %></td>
+            </tr>
+          <% end %>
+          <tr class='tr_sum'>
+            <td><b>総<%= t "activerecord.attributes.debt.stock" %></b></td>
+            <td><b><%= @debts.sum( :stock ) %></b></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <!-- 資産項目残高表 -->
+    <td>
+      <canvas id="canvas_property" width="300px" height="300px"></canvas>
+    </td>
+    <!-- 資産項目残高表 -->
+    <td>
+      <canvas id="canvas_debt" width="300px" height="300px"></canvas>
+    </td>
+  </tr>
+
+</table>
+
+<%= javascript_include_tag "Chart" %>
+<script>
+  $(function() {
+    // 表示用データを用意
+    var data_property = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    {
+        value: 50,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+    },
+    {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+      }
+    ];
+
+    var data_debt = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    ];
+
+    var option = {
+      showTooltips: true,
+      onAnimationComplete: function(){ this.showTooltip(this.segments, true); },
+    };
+
+    // Canvasに描画
+    var context_property = document.getElementById("canvas_property").getContext( "2d" );
+    new Chart( context_property ).Doughnut( data_property, option );
+
+    var context_debt = document.getElementById("canvas_debt").getContext( "2d" );
+    new Chart( context_debt ).Doughnut( data_debt, option );
+  });
+</script>

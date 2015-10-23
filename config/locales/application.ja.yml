@@ -23,7 +23,6 @@ ja:
       total: '集計'
       balance_sheet: '残高'
       profit_loss_statement: '月次収支'
-
   activerecord:
     models:
       property_group: '資産'

@@ -40,32 +40,17 @@
 
     <div class="navbar navbar-static-top">
       <div class="container">
-<!--
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
--->
         <a class="navbar-brand" href="#">Accounts</a>
-
-<!--
-        <div class="nav-collapse collapse navbar-responsive-collapse">
--->
           <ul class="nav navbar-nav">
             <br>
             <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
             <% if user_signed_in? %> 
-              <strong><%= current_user.email %></strong>.
-              <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             <% else %>
               <li><%= link_to "アカウント登録", new_user_registration_path %></li>
               <li><%= link_to "ログイン", new_user_session_path %></li>
             <% end %>
           </ul>
-<!--
-        </div>
--->
       </div>
     </div>
 
@@ -121,8 +106,8 @@
                   </a>
                 <div id="collapseTotal" class="accordion-body collapse" style="height: 0px;">
                   <div class="accordion-inner">
-                    <%= link_to t('helpers.titles.balance_sheet'), new_journal_path( t: Journal::JOURNAL_TYPE_PAY ) %>
-                    <%= link_to t('helpers.titles.profit_loss_statement'), new_journal_path( t: Journal::JOURNAL_TYPE_PAYLOAN ) %>
+                    <%= link_to t('helpers.titles.balance_sheet'), book_balance_sheet_path %>
+                    <%= link_to t('helpers.titles.profit_loss_statement'), book_profit_loss_statement_path %>
                   </div>
                 </div>
                 </li>
