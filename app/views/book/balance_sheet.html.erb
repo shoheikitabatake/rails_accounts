@@ -2,103 +2,145 @@
   <h1><%= t "helpers.titles.balance_sheet" %></h1>
 </div>
 
-<table class='table_inline' cellpadding="20">
-  <!-- 資産項目残高表 -->
-  <tr>
-    <td>
-      <table class="table table-striped">
+<div class="container">
+  <div class="row" style="display:table">
+    <!-- 資産項目残高表 -->
+    <h4 class="title"><%= t "activerecord.models.property" %></h4>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <table class="table table-hover" style="table-layout: fixed;">
         <thead>
           <tr>
-            <th><%= t "activerecord.models.property" %></th>
+            <th><%= t "helpers.titles.accounts" %></th>
             <th><%= t "activerecord.attributes.property.stock" %></th>
           </tr>
         </thead>
         <tbody>
-          <% @properties.each do |property| %>
-            <tr>
-              <td><%= property.name %></td>
-              <td><%= property.stock %></td>
+          <% sum_property = num = 0 %>
+          <% js_params_property = {} %>
+          <% @property_groups.each do | property_group | %>
+            <tr data-toggle="collapse" data-parent="#accordion2" href=".collapseProperty<%=property_group.id%>" class="accordion-parent">
+                <td>
+                  <%= property_group.name %>
+                  <div class="accordion-body collapse collapseProperty<%=property_group.id%>" style="height: 0px;">
+                    <div class="accordion-inner">
+                      <% property_group.properties.each do | property | %>
+                        <li><%= property.name %></li>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <%= property_group.properties.sum( :stock ) %>
+                  <div class="accordion-body collapse collapseProperty<%=property_group.id%>" style="height: 0px;">
+                    <div class="accordion-inner">
+                      <% property_group.properties.each do | property | %>
+                        <li><%= property.stock %></li>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
             </tr>
+<%
+            # js用パラメータ
+            sum_property += property_group.properties.sum( :stock ).to_i
+
+            color_pattern = getColorPattern( num = num.succ )
+            js_params_property[property_group.properties.sum( :stock )] = {
+              'value': property_group.properties.sum( :stock ).to_i,
+              'color': color_pattern["color"],
+              'highlight': color_pattern["highlight"],
+              'label': property_group.name
+            }
+%>
           <% end %>
           <tr class='tr_sum'>
-            <td><b>総<%= t "activerecord.attributes.property.stock" %></b></td>
-            <td><b><%= @properties.sum( :stock ) %></b></td>
+            <td><b>総<%= t "activerecord.models.property" %></b></td>
+            <td><b><%= sum_property %></b></td>
           </tr>
         </tbody>
       </table>
-    </td>
+    </div>
 
-  <!-- 負債項目残高表 -->
-    <td>
-      <table class="table table-striped">
+    <!-- 資産項目残高表 -->
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <canvas id="canvas_property" width="300px" height="300px"></canvas>
+      <div class="canvas-title"><%= sum_property %></div>
+    </div>
+
+    <!-- 回り込み解除 -->
+    <p  style="clear:left;">
+
+    <!-- 負債項目残高表 -->
+    <h4 class="title"><%= t "activerecord.models.debt" %></h4>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <table class="table table-hover" style="table-layout: fixed;">
         <thead>
           <tr>
-            <th><%= t "activerecord.models.debt" %></th>
+            <th><%= t "helpers.titles.accounts" %></th>
             <th><%= t "activerecord.attributes.debt.stock" %></th>
           </tr>
         </thead>
         <tbody>
-          <% @debts.each do |debt| %>
-            <tr>
-              <td><%= debt.name %></td>
-              <td><%= debt.stock %></td>
+          <% sum_debt = num = 0 %>
+          <% js_params_debt = {} %>
+          <% @debt_groups.each do | debt_group | %>
+            <tr data-toggle="collapse" data-parent="#accordion2" href=".collapseDebt<%=debt_group.id%>" class="accordion-parent">
+                <td>
+                  <%= debt_group.name %>
+                  <div class="accordion-body collapse collapseDebt<%=debt_group.id%>" style="height: 0px;">
+                    <div class="accordion-inner">
+                      <% debt_group.debts.each do | debt | %>
+                        <li><%= debt.name %></li>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <%= debt_group.debts.sum( :stock ) %>
+                  <div class="accordion-body collapse collapseDebt<%=debt_group.id%>" style="height: 0px;">
+                    <div class="accordion-inner">
+                      <% debt_group.debts.each do | debt | %>
+                        <li><%= debt.stock %></li>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
             </tr>
+<%
+            # js用パラメータ
+            sum_debt += debt_group.debts.sum( :stock ).to_i
+
+            color_pattern = getColorPattern( num = num.succ )
+            js_params_debt[debt_group.debts.sum( :stock )] = {
+              'value': debt_group.debts.sum( :stock ).to_i,
+              'color': color_pattern["color"],
+              'highlight': color_pattern["highlight"],
+              'label': debt_group.name
+            }
+%>
           <% end %>
           <tr class='tr_sum'>
-            <td><b>総<%= t "activerecord.attributes.debt.stock" %></b></td>
-            <td><b><%= @debts.sum( :stock ) %></b></td>
+            <td><b>総<%= t "activerecord.models.debt" %></b></td>
+            <td><b><%= sum_debt %></b></td>
           </tr>
         </tbody>
       </table>
-    </td>
-  </tr>
+    </div>
 
-  <tr>
-    <!-- 資産項目残高表 -->
-    <td>
-      <canvas id="canvas_property" width="300px" height="300px"></canvas>
-    </td>
-    <!-- 資産項目残高表 -->
-    <td>
+    <!-- 負債項目残高表 -->
+    <div class="col-xs-12 col-sm-6 col-md-6">
       <canvas id="canvas_debt" width="300px" height="300px"></canvas>
-    </td>
-  </tr>
-
-</table>
+      <div class="canvas-title"><%= sum_debt %></div>
+    </div>
+  </div>
+</div>
 
 <%= javascript_include_tag "Chart" %>
 <script>
   $(function() {
     // 表示用データを用意
-    var data_property = [
-    {
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-      }
-    ];
-
-    var data_debt = [
-    {
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    ];
+    var data_property = $.parseJSON( '<%= js_params_property.to_json().html_safe  %>' );
+    var data_debt = $.parseJSON( '<%= js_params_debt.to_json().html_safe  %>' );
 
     var option = {
       showTooltips: true,
@@ -111,5 +153,11 @@
 
     var context_debt = document.getElementById("canvas_debt").getContext( "2d" );
     new Chart( context_debt ).Doughnut( data_debt, option );
+
+    // アコーディオンの設定
+    $( ".accordion-parent" ).click(function () {
+      $( this ).attr( 'data-href' );
+    });
+
   });
 </script>
