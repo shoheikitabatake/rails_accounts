@@ -28,7 +28,7 @@ class DebtGroupsController < ApplicationController
 
     respond_to do |format|
       if @debt_group.save
-        format.html { redirect_to @debt_group, notice: 'Debt group was successfully created.' }
+        format.html { redirect_to debt_groups_path, notice: '登録しました。' }
         format.json { render :show, status: :created, location: @debt_group }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DebtGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @debt_group.update(debt_group_params)
-        format.html { redirect_to @debt_group, notice: 'Debt group was successfully updated.' }
+        format.html { redirect_to debt_groups_path, notice: '更新しました。' }
         format.json { render :show, status: :ok, location: @debt_group }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DebtGroupsController < ApplicationController
   def destroy
     @debt_group.destroy
     respond_to do |format|
-      format.html { redirect_to debt_groups_url, notice: 'Debt group was successfully destroyed.' }
+      format.html { redirect_to debt_groups_url, notice: '削除しました。' }
       format.json { head :no_content }
     end
   end

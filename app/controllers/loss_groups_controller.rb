@@ -28,7 +28,7 @@ class LossGroupsController < ApplicationController
 
     respond_to do |format|
       if @loss_group.save
-        format.html { redirect_to @loss_group, notice: 'Loss group was successfully created.' }
+        format.html { redirect_to loss_groups_path, notice: '登録しました。' }
         format.json { render :show, status: :created, location: @loss_group }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class LossGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @loss_group.update(loss_group_params)
-        format.html { redirect_to @loss_group, notice: 'Loss group was successfully updated.' }
+        format.html { redirect_to loss_groups_path, notice: '更新しました。' }
         format.json { render :show, status: :ok, location: @loss_group }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class LossGroupsController < ApplicationController
   def destroy
     @loss_group.destroy
     respond_to do |format|
-      format.html { redirect_to loss_groups_url, notice: 'Loss group was successfully destroyed.' }
+      format.html { redirect_to loss_groups_url, notice: '削除しました。' }
       format.json { head :no_content }
     end
   end

@@ -28,7 +28,7 @@ class ProfitGroupsController < ApplicationController
 
     respond_to do |format|
       if @profit_group.save
-        format.html { redirect_to @profit_group, notice: 'Profit group was successfully created.' }
+        format.html { redirect_to profit_groups_path, notice: '登録しました。' }
         format.json { render :show, status: :created, location: @profit_group }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ProfitGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @profit_group.update(profit_group_params)
-        format.html { redirect_to @profit_group, notice: 'Profit group was successfully updated.' }
+        format.html { redirect_to profit_groups_path, notice: '更新しました。' }
         format.json { render :show, status: :ok, location: @profit_group }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ProfitGroupsController < ApplicationController
   def destroy
     @profit_group.destroy
     respond_to do |format|
-      format.html { redirect_to profit_groups_url, notice: 'Profit group was successfully destroyed.' }
+      format.html { redirect_to profit_groups_url, notice: '削除しました。' }
       format.json { head :no_content }
     end
   end
