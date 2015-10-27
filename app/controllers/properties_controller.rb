@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_property_group, only: [:new, :edit]
+  before_action :validate_is_group, only: [:new, :edit]
 
   # GET /properties
   # GET /properties.json
@@ -29,7 +30,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
-        format.html { redirect_to @property, notice: 'Property was successfully created.' }
+        format.html { redirect_to properties_path, notice: '登録しました。' }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class PropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @property.update(property_params)
-        format.html { redirect_to @property, notice: 'Property was successfully updated.' }
+        format.html { redirect_to properties_path, notice: '更新しました。' }
         format.json { render :show, status: :ok, location: @property }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class PropertiesController < ApplicationController
   def destroy
     @property.destroy
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
+      format.html { redirect_to properties_url, notice: '削除しました。' }
       format.json { head :no_content }
     end
   end
@@ -80,5 +81,10 @@ class PropertiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
       params.require(:property).permit(:user_id, :group_id, :name, :stock)
+    end
+
+    def validate_is_group
+      # 費目未登録の場合
+      redirect_to new_property_group_path, notice: "費目の登録を行ってください。" if @property_group.empty?
     end
 end

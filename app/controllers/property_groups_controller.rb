@@ -28,7 +28,7 @@ class PropertyGroupsController < ApplicationController
 
     respond_to do |format|
       if @property_group.save
-        format.html { redirect_to @property_group, notice: 'Property group was successfully created.' }
+        format.html { redirect_to property_groups_path, notice: '登録しました。' }
         format.json { render :show, status: :created, location: @property_group }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PropertyGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @property_group.update(property_group_params)
-        format.html { redirect_to @property_group, notice: 'Property group was successfully updated.' }
+        format.html { redirect_to property_groups_path, notice: '更新しました。' }
         format.json { render :show, status: :ok, location: @property_group }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class PropertyGroupsController < ApplicationController
   def destroy
     @property_group.destroy
     respond_to do |format|
-      format.html { redirect_to property_groups_url, notice: 'Property group was successfully destroyed.' }
+      format.html { redirect_to property_groups_url, notice: '削除しました' }
       format.json { head :no_content }
     end
   end

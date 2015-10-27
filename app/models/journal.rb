@@ -133,7 +133,7 @@ class Journal < ActiveRecord::Base
   def getAccountFormData ( group, account )
     list = Array.new
 
-    account.all.each do |f|
+    account.where( user_id: User.current.id ).each do |f|
       if ! list[ f.group_id ]
         # グループidが最初に見つかったレコードの場合は初期化
         list[ f.group_id ] = [ group.find( f.group_id ).name, [] ]

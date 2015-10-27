@@ -1,6 +1,7 @@
 class LossesController < ApplicationController
   before_action :set_loss, only: [:show, :edit, :update, :destroy]
   before_action :set_property_group, only: [:new, :edit]
+  before_action :validate_is_group, only: [:new, :edit]
 
   # GET /losses
   # GET /losses.json
@@ -29,7 +30,7 @@ class LossesController < ApplicationController
 
     respond_to do |format|
       if @loss.save
-        format.html { redirect_to @loss, notice: 'Loss was successfully created.' }
+        format.html { redirect_to losses_path, notice: '登録しました。' }
         format.json { render :show, status: :created, location: @loss }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class LossesController < ApplicationController
   def update
     respond_to do |format|
       if @loss.update(loss_params)
-        format.html { redirect_to @loss, notice: 'Loss was successfully updated.' }
+        format.html { redirect_to losses_path, notice: '更新しました。' }
         format.json { render :show, status: :ok, location: @loss }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class LossesController < ApplicationController
   def destroy
     @loss.destroy
     respond_to do |format|
-      format.html { redirect_to losses_url, notice: 'Loss was successfully destroyed.' }
+      format.html { redirect_to losses_url, notice: '削除しました。' }
       format.json { head :no_content }
     end
   end
@@ -80,5 +81,10 @@ class LossesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def loss_params
       params.require(:loss).permit(:user_id, :group_id, :name, :budget, :stock)
+    end
+
+    def validate_is_group
+      # 費目未登録の場合
+      redirect_to new_loss_group_path, notice: "費目の登録を行ってください。" if @loss_group.empty?
     end
 end

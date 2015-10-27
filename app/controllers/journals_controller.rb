@@ -25,6 +25,9 @@ class JournalsController < ApplicationController
     @credit_type = @journal.getCreditType( @journal_type )
     @debits = @journal.getAccountByType( @debit_type )
     @credits = @journal.getAccountByType( @credit_type )
+
+    # 科目未登録の場合
+    redirect_to setting_index_path, notice: "まずは設定を行ってください。" if ( ! @debits || ! @credits )
   end
 
   # GET /journals/1/edit
