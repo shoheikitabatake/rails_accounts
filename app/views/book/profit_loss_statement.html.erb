@@ -61,11 +61,11 @@
                 </td>
                 <td>
                   <% budget_variance = amount_sum - budget_sum %>
-                  <%= budget_variance %>
+                  <span class="<%= budget_variance > 0 ? 'up_color' : 'down_color'%>"><%= budget_variance %></span>
                   <div class="accordion-body collapse collapseProfit<%=profit_group_id%>" style="height: 0px;">
                     <div class="accordion-inner">
                       <% profit_group.each do | profit_id, profit | %>
-                        <li><%= profit['budget'] - profit['pl'] %></li>
+                        <li><span class="<%= profit['budget'] - profit['pl'] > 0 ? 'up_color' : 'down_color'%>"><%= profit['budget'] - profit['pl'] %></span></li>
                       <% end %>
                     </div>
                   </div>
@@ -90,7 +90,7 @@
             <td><b>総<%= t "activerecord.models.profit" %></b></td>
             <td><b><%= sum_profit %></b></td>
             <td><b><%= sum_profit_budget %></b></td>
-            <td><b><%= sum_profit_budget_variance %></b></td>
+            <td><b><span class="<%= sum_profit_budget_variance > 0 ? 'up_color' : 'down_color'%>"><%= sum_profit_budget_variance %></span></b></td>
           </tr>
         </tbody>
       </table>
@@ -159,11 +159,11 @@
                 </td>
                 <td>
                   <% budget_variance = budget_sum - amount_sum %>
-                  <%= budget_variance %>
+                  <span class="<%= budget_variance > 0 ? 'up_color' : 'down_color'%>"><%= budget_variance %></span>
                   <div class="accordion-body collapse collapseLoss<%=loss_group_id%>" style="height: 0px;">
                     <div class="accordion-inner">
                       <% loss_group.each do | loss_id, loss | %>
-                        <li><%= loss['budget'] - loss['pl'] %></li>
+                        <li><span class="<%= loss['budget'] - loss['pl'] > 0 ? 'up_color' : 'down_color'%>"><%= loss['budget'] - loss['pl'] %></span></li>
                       <% end %>
                     </div>
                   </div>
@@ -188,7 +188,7 @@
             <td><b>総<%= t "activerecord.models.loss" %></b></td>
             <td><b><%= sum_loss %></b></td>
             <td><b><%= sum_loss_budget %></b></td>
-            <td><b><%= sum_loss_budget_variance %></b></td>
+            <td><b><span class="<%= sum_loss_budget_variance > 0 ? 'up_color' : 'down_color'%>"><%= sum_loss_budget_variance %></span></b></td>
           </tr>
         </tbody>
       </table>
