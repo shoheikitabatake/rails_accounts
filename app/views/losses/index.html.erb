@@ -8,7 +8,6 @@
       <th><%= model_class.human_attribute_name(:group_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:budget) %></th>
-      <th><%= model_class.human_attribute_name(:stock) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -18,7 +17,6 @@
         <td><%= loss.loss_group.name %></td>
         <td><%= loss.name %></td>
         <td><%= loss.budget %></td>
-        <td><%= loss.stock %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_loss_path(loss), :class => 'btn btn-default btn-xs' %>
