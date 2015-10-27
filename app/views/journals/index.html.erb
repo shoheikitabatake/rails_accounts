@@ -1,6 +1,6 @@
 <%- model_class = Journal -%>
-<%= setYears( @year ) %><br />
-<%= setMonths( @year, @month ) %>
+<%= setYears( @year, ApplicationHelper::PATH_TYPE_JOURNAL ) %><br />
+<%= setMonths( @year, @month, ApplicationHelper::PATH_TYPE_JOURNAL ) %>
 
 <div class="page-header">
   <h1><%=t '.title', :default => "#{@year}年#{@month}月の取引履歴" %></h1>

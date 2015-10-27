@@ -22,7 +22,9 @@ ja:
       payloan: '支払（クレカ）'
       total: '集計'
       balance_sheet: '残高'
-      profit_loss_statement: '月次収支'
+      profit_loss_statement: '収支'
+      budget_variance: '予算差異'
+      budget: '予算'
   activerecord:
     models:
       property_group: '資産'
