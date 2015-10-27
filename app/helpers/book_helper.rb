@@ -40,4 +40,119 @@ module BookHelper
       return patterns[patterns.length]
     end
   end
+
+
+
+
+
+  def getProfitData ( journals )
+    list = Hash.new { |h,k| h[k] = {} }
+
+    journals.each do | journal |
+      # 借方の処理
+      if journal.debit_type == Journal::ACCOUNT_TYPE_PROFIT
+        # 収入
+        profit = Profit.find( journal.debit_id )
+        profit_group = ProfitGroup.find( profit.group_id )
+
+        if ! list[profit.group_id]
+          list[profit.group_id] = {
+            profit.id => {}
+          }
+        end
+
+        if ! list[profit.group_id][profit.id]
+          list[profit.group_id][profit.id] = {
+            "group_name" => profit_group.name,
+            "name"       => profit.name,
+            "pl"         => journal.amount * -1,
+            "budget"     => profit.budget,
+          }
+        else
+          list[profit.group_id][profit.id]["pl"] -= journal.amount
+        end
+      end
+
+      # 貸方の処理
+      if journal.credit_type == Journal::ACCOUNT_TYPE_PROFIT
+        # 収入
+        profit = Profit.find( journal.credit_id )
+        profit_group = ProfitGroup.find( profit.group_id )
+
+        if ! list[profit.group_id]
+          list[profit.group_id] = {
+            profit.id => {}
+          }
+        end
+
+        if ! list[profit.group_id][profit.id]
+          list[profit.group_id][profit.id] = {
+            "group_name" => profit_group.name,
+            "name"       => profit.name,
+            "pl"         => journal.amount,
+            "budget"     => profit.budget,
+          }
+        else
+          list[profit.group_id][profit.id]["pl"] += journal.amount
+        end
+      end
+    end
+    return list
+  end
+
+  def getLossData ( journals )
+    list = Hash.new { |h,k| h[k] = {} }
+
+    journals.each do | journal |
+      # 借方の処理
+      if journal.debit_type == Journal::ACCOUNT_TYPE_LOSS
+        # 支出
+        loss = Loss.find( journal.debit_id )
+        loss_group = LossGroup.find( loss.group_id )
+
+        if ! list[loss.group_id]
+          list[loss.group_id] = {
+            loss.id => {}
+          }
+        end
+
+        if ! list[loss.group_id][loss.id]
+          list[loss.group_id][loss.id] = {
+            "group_name" => loss_group.name,
+            "name"       => loss.name,
+            "pl"         => journal.amount,
+            "budget"     => loss.budget,
+          }
+        else
+          list[loss.group_id][loss.id]["pl"] += journal.amount
+        end
+      end
+
+      # 貸方の処理
+      if journal.credit_type == Journal::ACCOUNT_TYPE_LOSS
+        # 支出
+        loss = Loss.find( journal.credit_id )
+        loss_group = LossGroup.find( loss.group_id )
+
+        if ! list[loss.group_id]
+          list[loss.group_id] = {
+            loss.id => {}
+          }
+        end
+
+        if ! list[loss.group_id][loss.id]
+          list[loss.group_id][loss.id] = {
+            "group_name" => loss_group.name,
+            "name"       => loss.name,
+            "pl"         => journal.amount * -1,
+            "budget"     => loss.budget,
+          }
+        else
+          list[loss.group_id][loss.id]["pl"] -= journal.amount
+        end
+      end
+    end
+    return list
+  end
+
 end
