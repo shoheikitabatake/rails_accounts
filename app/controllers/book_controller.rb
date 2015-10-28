@@ -12,7 +12,10 @@ class BookController < ApplicationController
       trade_date: Date.new( @year, @month, 1 )..Date.new( @year, @month, -1 )
     ).order("trade_date DESC")
 
-    @profits = view_context.getProfitData( journals )
-    @losses = view_context.getLossData( journals )
+    @profit_groups = ProfitGroup.where( user_id: User.current.id )
+    @loss_groups = LossGroup.where( user_id: User.current.id )
+
+    @profit_journal_data = view_context.getProfitJournalData( journals )
+    @loss_journal_data = view_context.getLossJournalData( journals )
   end
 end
