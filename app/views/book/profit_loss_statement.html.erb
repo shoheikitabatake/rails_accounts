@@ -22,13 +22,13 @@
         <tbody>
           <% sum_profit = sum_profit_budget = sum_profit_budget_variance = num = 0 %>
           <% js_params_profit = {} %>
-          <% @profits.each do | profit_group_id, profit_group | %>
-            <tr data-toggle="collapse" data-parent="#accordion2" href=".collapseProfit<%=profit_group_id%>" class="accordion-parent">
+          <% @profits.each do | profit_group_name, profit_group | %>
+            <tr data-toggle="collapse" data-parent="#accordion2" href=".collapseProfit<%=num%>" class="accordion-parent">
                 <td>
-                  <%= ProfitGroup.find( profit_group_id ).name %>
-                  <div class="accordion-body collapse collapseProfit<%=profit_group_id%>" style="height: 0px;">
+                  <%= profit_group_name %>
+                  <div class="accordion-body collapse collapseProfit<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% profit_group.each do | profit_id, profit | %>
+                      <% profit_group.each do | key, profit | %>
                         <li><%= profit['name'] %></li>
                       <% end %>
                     </div>
@@ -36,14 +36,14 @@
                 </td>
                 <td>
                   <% amount_sum = budget_sum = 0 %>
-                  <% profit_group.each do | profit_id, profit | %>
+                  <% profit_group.each do | key, profit | %>
                     <% amount_sum += profit['pl'] %>
                     <% budget_sum += profit['budget'] %>
                   <% end %>
                   <%= amount_sum %>
-                  <div class="accordion-body collapse collapseProfit<%=profit_group_id%>" style="height: 0px;">
+                  <div class="accordion-body collapse collapseProfit<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% profit_group.each do | profit_id, profit | %>
+                      <% profit_group.each do | key, profit | %>
                         <li><%= profit['pl'] %></li>
                       <% end %>
                     </div>
@@ -51,9 +51,9 @@
                 </td>
                 <td>
                   <%= budget_sum %>
-                  <div class="accordion-body collapse collapseProfit<%=profit_group_id%>" style="height: 0px;">
+                  <div class="accordion-body collapse collapseProfit<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% profit_group.each do | profit_id, profit | %>
+                      <% profit_group.each do | key, profit | %>
                         <li><%= profit['budget'] %></li>
                       <% end %>
                     </div>
@@ -62,9 +62,9 @@
                 <td>
                   <% budget_variance = amount_sum - budget_sum %>
                   <span class="<%= budget_variance > 0 ? 'up_color' : 'down_color'%>"><%= budget_variance %></span>
-                  <div class="accordion-body collapse collapseProfit<%=profit_group_id%>" style="height: 0px;">
+                  <div class="accordion-body collapse collapseProfit<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% profit_group.each do | profit_id, profit | %>
+                      <% profit_group.each do | key, profit | %>
                         <li><span class="<%= profit['budget'] - profit['pl'] > 0 ? 'up_color' : 'down_color'%>"><%= profit['budget'] - profit['pl'] %></span></li>
                       <% end %>
                     </div>
@@ -82,7 +82,7 @@
               'value': amount_sum,
               'color': color_pattern["color"],
               'highlight': color_pattern["highlight"],
-              'label': ProfitGroup.find( profit_group_id ).name
+              'label': profit_group_name
             }
 %>
           <% end %>
@@ -120,13 +120,13 @@
         <tbody>
           <% sum_loss = sum_loss_budget = sum_loss_budget_variance = num = 0 %>
           <% js_params_loss = {} %>
-          <% @losses.each do | loss_group_id, loss_group | %>
-            <tr data-toggle="collapse" data-parent="#accordion2" href=".collapseLoss<%=loss_group_id%>" class="accordion-parent">
+          <% @losses.each do | loss_group_name, loss_group | %>
+            <tr data-toggle="collapse" data-parent="#accordion2" href=".collapseLoss<%=num%>" class="accordion-parent">
                 <td>
-                  <%= LossGroup.find( loss_group_id ).name %>
-                  <div class="accordion-body collapse collapseLoss<%=loss_group_id%>" style="height: 0px;">
+                  <%= loss_group_name %>
+                  <div class="accordion-body collapse collapseLoss<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% loss_group.each do | loss_id, loss | %>
+                      <% loss_group.each do | key, loss | %>
                         <li><%= loss['name'] %></li>
                       <% end %>
                     </div>
@@ -134,14 +134,14 @@
                 </td>
                 <td>
                   <% amount_sum = budget_sum = 0 %>
-                  <% loss_group.each do | loss_id, loss | %>
+                  <% loss_group.each do | key, loss | %>
                     <% amount_sum += loss['pl'] %>
                     <% budget_sum += loss['budget'] %>
                   <% end %>
                   <%= amount_sum %>
-                  <div class="accordion-body collapse collapseLoss<%=loss_group_id%>" style="height: 0px;">
+                  <div class="accordion-body collapse collapseLoss<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% loss_group.each do | loss_id, loss | %>
+                      <% loss_group.each do | key, loss | %>
                         <li><%= loss['pl'] %></li>
                       <% end %>
                     </div>
@@ -149,9 +149,9 @@
                 </td>
                 <td>
                   <%= budget_sum %>
-                  <div class="accordion-body collapse collapseLoss<%=loss_group_id%>" style="height: 0px;">
+                  <div class="accordion-body collapse collapseLoss<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% loss_group.each do | loss_id, loss | %>
+                      <% loss_group.each do | key, loss | %>
                         <li><%= loss['budget'] %></li>
                       <% end %>
                     </div>
@@ -160,9 +160,9 @@
                 <td>
                   <% budget_variance = budget_sum - amount_sum %>
                   <span class="<%= budget_variance > 0 ? 'up_color' : 'down_color'%>"><%= budget_variance %></span>
-                  <div class="accordion-body collapse collapseLoss<%=loss_group_id%>" style="height: 0px;">
+                  <div class="accordion-body collapse collapseLoss<%=num%>" style="height: 0px;">
                     <div class="accordion-inner">
-                      <% loss_group.each do | loss_id, loss | %>
+                      <% loss_group.each do | key, loss | %>
                         <li><span class="<%= loss['budget'] - loss['pl'] > 0 ? 'up_color' : 'down_color'%>"><%= loss['budget'] - loss['pl'] %></span></li>
                       <% end %>
                     </div>
@@ -180,7 +180,7 @@
               'value': amount_sum,
               'color': color_pattern["color"],
               'highlight': color_pattern["highlight"],
-              'label': LossGroup.find( loss_group_id ).name
+              'label': loss_group_name
             }
 %>
           <% end %>

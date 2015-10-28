@@ -41,11 +41,56 @@ module BookHelper
     end
   end
 
-
-
-
-
   def getProfitData ( journals )
+    journal_fix_data = getProfitJournalData( journals )
+
+    list = Hash.new { |h,k| h[k] = {} }
+
+    profits = Profit.where( user_id: User.current.id )
+
+    profits.each do | profit |
+      list[profit.profit_group.name][profit.id] = {
+          "name"       => profit.name,
+          "budget"     => profit.budget,
+      }
+
+      pl = 0
+      if journal_fix_data[profit.profit_group.id] && journal_fix_data[profit.profit_group.id][profit.id]
+        pl = journal_fix_data[profit.profit_group.id][profit.id]
+      end
+      list[profit.profit_group.name][profit.id].store( "pl", pl )
+    end
+
+    return list
+  end
+
+  def getLossData ( journals )
+    journal_fix_data = getLossJournalData( journals )
+
+    list = Hash.new { |h,k| h[k] = {} }
+
+    losses = Loss.where( user_id: User.current.id )
+
+    losses.each do | loss |
+      list[loss.loss_group.name][loss.id] = {
+          "name"       => loss.name,
+          "budget"     => loss.budget,
+      }
+
+      pl = 0
+      if journal_fix_data[loss.loss_group.id] && journal_fix_data[loss.loss_group.id][loss.id]
+        pl = journal_fix_data[loss.loss_group.id][loss.id]
+      end
+      list[loss.loss_group.name][loss.id].store( "pl", pl )
+    end
+
+    return list
+  end
+
+  # 取引履歴の収益項目を[費目][科目]の形で整形
+  # @params [ActiveRecord] journals
+  # @return [Hash] [費目name][科目id] = journal.amount
+  def getProfitJournalData ( journals )
     list = Hash.new { |h,k| h[k] = {} }
 
     journals.each do | journal |
@@ -62,15 +107,10 @@ module BookHelper
         end
 
         if ! list[profit.group_id][profit.id]
-          list[profit.group_id][profit.id] = {
-            "group_name" => profit_group.name,
-            "name"       => profit.name,
-            "pl"         => journal.amount * -1,
-            "budget"     => profit.budget,
-          }
-        else
-          list[profit.group_id][profit.id]["pl"] -= journal.amount
+          list[profit.group_id][profit.id] = 0
         end
+
+        list[profit.group_id][profit.id] -= journal.amount
       end
 
       # 貸方の処理
@@ -86,21 +126,18 @@ module BookHelper
         end
 
         if ! list[profit.group_id][profit.id]
-          list[profit.group_id][profit.id] = {
-            "group_name" => profit_group.name,
-            "name"       => profit.name,
-            "pl"         => journal.amount,
-            "budget"     => profit.budget,
-          }
-        else
-          list[profit.group_id][profit.id]["pl"] += journal.amount
+          list[profit.group_id][profit.id] = 0
         end
+        list[profit.group_id][profit.id] += journal.amount.to_i
       end
     end
     return list
   end
 
-  def getLossData ( journals )
+  # 取引履歴の費用項目を[費目][科目]の形で整形
+  # @params [ActiveRecord] journals
+  # @return [Hash] [費目name][科目id] = journal.amount
+  def getLossJournalData ( journals )
     list = Hash.new { |h,k| h[k] = {} }
 
     journals.each do | journal |
@@ -117,15 +154,10 @@ module BookHelper
         end
 
         if ! list[loss.group_id][loss.id]
-          list[loss.group_id][loss.id] = {
-            "group_name" => loss_group.name,
-            "name"       => loss.name,
-            "pl"         => journal.amount,
-            "budget"     => loss.budget,
-          }
-        else
-          list[loss.group_id][loss.id]["pl"] += journal.amount
+          list[loss.group_id][loss.id] = 0
         end
+
+        list[loss.group_id][loss.id] += journal.amount
       end
 
       # 貸方の処理
@@ -141,15 +173,10 @@ module BookHelper
         end
 
         if ! list[loss.group_id][loss.id]
-          list[loss.group_id][loss.id] = {
-            "group_name" => loss_group.name,
-            "name"       => loss.name,
-            "pl"         => journal.amount * -1,
-            "budget"     => loss.budget,
-          }
-        else
-          list[loss.group_id][loss.id]["pl"] -= journal.amount
+          list[loss.group_id][loss.id] = 0
         end
+
+        list[loss.group_id][loss.id] -= journal.amount
       end
     end
     return list

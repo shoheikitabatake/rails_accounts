@@ -23,8 +23,8 @@ class JournalsController < ApplicationController
     @journal_type = params['t'].to_i
     @debit_type = @journal.getDebitType( @journal_type )
     @credit_type = @journal.getCreditType( @journal_type )
-    @debits = @journal.getAccountByType( @debit_type )
-    @credits = @journal.getAccountByType( @credit_type )
+    @debits = view_context.getAccountByType( @debit_type )
+    @credits = view_context.getAccountByType( @credit_type )
 
     # 科目未登録の場合
     redirect_to setting_index_path, notice: "まずは設定を行ってください。" if ( ! @debits || ! @credits )
@@ -34,8 +34,8 @@ class JournalsController < ApplicationController
   def edit
     @debit_type = @journal.debit_type
     @credit_type = @journal.credit_type
-    @debits = @journal.getAccountByType( @debit_type )
-    @credits = @journal.getAccountByType( @credit_type )
+    @debits = view_context.getAccountByType( @debit_type )
+    @credits = view_context.getAccountByType( @credit_type )
   end
 
   # POST /journals
