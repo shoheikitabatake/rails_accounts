@@ -41,50 +41,48 @@ module BookHelper
     end
   end
 
-  def getProfitData ( journals )
-    journal_fix_data = getProfitJournalData( journals )
+  # 取引履歴から収益項目の指定グループIDの取引額合計を取得する
+  # @params [Integer] group_id
+  # @return [Integer]
+  def getSumProfitAmount ( group_id )
+    sum = 0
+    return sum if ! @profit_journal_data.has_key?( group_id )
 
-    list = Hash.new { |h,k| h[k] = {} }
-
-    profits = Profit.where( user_id: User.current.id )
-
-    profits.each do | profit |
-      list[profit.profit_group.name][profit.id] = {
-          "name"       => profit.name,
-          "budget"     => profit.budget,
-      }
-
-      pl = 0
-      if journal_fix_data[profit.profit_group.id] && journal_fix_data[profit.profit_group.id][profit.id]
-        pl = journal_fix_data[profit.profit_group.id][profit.id]
-      end
-      list[profit.profit_group.name][profit.id].store( "pl", pl )
+    @profit_journal_data[group_id].each do | key, profit_amount |
+      sum += profit_amount
     end
 
-    return list
+    return sum
   end
 
-  def getLossData ( journals )
-    journal_fix_data = getLossJournalData( journals )
+  # 取引履歴から収益項目の指定IDの取引額を取得する
+  # @params [Integer] group_id
+  # @return [Integer]
+  def getProfitAmount ( group_id, profit_id )
+    return 0 if ( ! @profit_journal_data.has_key?( group_id ) || ! @profit_journal_data[group_id].has_key?( profit_id ) )
+    return @profit_journal_data[group_id][profit_id]
+  end
 
-    list = Hash.new { |h,k| h[k] = {} }
+  # 取引履歴から支出項目の指定グループIDの取引額合計を取得する
+  # @params [Integer] group_id
+  # @return [Integer]
+  def getSumLossAmount ( group_id )
+    sum = 0
+    return sum if ! @loss_journal_data.has_key?( group_id )
 
-    losses = Loss.where( user_id: User.current.id )
-
-    losses.each do | loss |
-      list[loss.loss_group.name][loss.id] = {
-          "name"       => loss.name,
-          "budget"     => loss.budget,
-      }
-
-      pl = 0
-      if journal_fix_data[loss.loss_group.id] && journal_fix_data[loss.loss_group.id][loss.id]
-        pl = journal_fix_data[loss.loss_group.id][loss.id]
-      end
-      list[loss.loss_group.name][loss.id].store( "pl", pl )
+    @loss_journal_data[group_id].each do | key, loss_amount |
+      sum += loss_amount
     end
 
-    return list
+    return sum
+  end
+
+  # 取引履歴から支出項目の指定IDの取引額を取得する
+  # @params [Integer] group_id
+  # @return [Integer]
+  def getLossAmount ( group_id, loss_id )
+    return 0 if ( ! @loss_journal_data.has_key?( group_id ) || ! @loss_journal_data[group_id].has_key?( loss_id ) )
+    return @loss_journal_data[group_id][loss_id]
   end
 
   # 取引履歴の収益項目を[費目][科目]の形で整形
@@ -128,7 +126,7 @@ module BookHelper
         if ! list[profit.group_id][profit.id]
           list[profit.group_id][profit.id] = 0
         end
-        list[profit.group_id][profit.id] += journal.amount.to_i
+        list[profit.group_id][profit.id] += journal.amount
       end
     end
     return list
