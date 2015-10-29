@@ -1,3 +1,4 @@
+<%= javascript_include_tag "Chart", "Book" %>
 <div class="page-header">
   <h1><%= t "helpers.titles.balance_sheet" %></h1>
 </div>
@@ -63,7 +64,7 @@
 
     <!-- 資産項目残高表 -->
     <div class="col-xs-12 col-sm-6 col-md-6">
-      <canvas id="canvas_property" width="300px" height="300px"></canvas>
+      <canvas id="canvas1" width="300px" height="300px"></canvas>
       <div class="canvas-title"><%= sum_property %></div>
     </div>
 
@@ -129,35 +130,27 @@
 
     <!-- 負債項目残高表 -->
     <div class="col-xs-12 col-sm-6 col-md-6">
-      <canvas id="canvas_debt" width="300px" height="300px"></canvas>
+      <canvas id="canvas2" width="300px" height="300px"></canvas>
       <div class="canvas-title"><%= sum_debt %></div>
     </div>
   </div>
 </div>
 
-<%= javascript_include_tag "Chart" %>
 <script>
-  $(function() {
-    // 表示用データを用意
-    var data_property = $.parseJSON( '<%= js_params_property.to_json().html_safe  %>' );
-    var data_debt = $.parseJSON( '<%= js_params_debt.to_json().html_safe  %>' );
+  // 表示用データを用意
+  var data_property = $.parseJSON( '<%= js_params_property.to_json().html_safe  %>' );
+  var data_debt = $.parseJSON( '<%= js_params_debt.to_json().html_safe  %>' );
 
-    var option = {
-      showTooltips: true,
-      onAnimationComplete: function(){ this.showTooltip(this.segments, true); },
-    };
+  function ready() {
+    // include遅延があったら再コールする
+    if ( typeof initCanvasDoughnut != "function" ) {
+      setTimeout( "ready()", 1 );
+      return;
+    }
 
-    // Canvasに描画
-    var context_property = document.getElementById("canvas_property").getContext( "2d" );
-    new Chart( context_property ).Doughnut( data_property, option );
+    // Turbolinksのせいで遷移時にreadyが発火しない
+    documentReady( initCanvasDoughnut( data_property, data_debt ) );
+  }
 
-    var context_debt = document.getElementById("canvas_debt").getContext( "2d" );
-    new Chart( context_debt ).Doughnut( data_debt, option );
-
-    // アコーディオンの設定
-    $( ".accordion-parent" ).click(function () {
-      $( this ).attr( 'data-href' );
-    });
-
-  });
+  ready();
 </script>

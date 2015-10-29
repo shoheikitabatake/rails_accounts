@@ -1,3 +1,4 @@
+<%= javascript_include_tag "Chart", "Book" %>
 <%= setYears( @year, ApplicationHelper::PATH_TYPE_PL ) %><br />
 <%= setMonths( @year, @month, ApplicationHelper::PATH_TYPE_PL ) %>
 
@@ -95,7 +96,7 @@
 
     <!-- 収入項目残高表 -->
     <div class="col-xs-12 col-sm-6 col-md-6">
-      <canvas id="canvas_profit" width="300px" height="300px"></canvas>
+      <canvas id="canvas1" width="300px" height="300px"></canvas>
       <div class="canvas-title"><%= sum_profit %></div>
     </div>
 
@@ -190,35 +191,27 @@
 
     <!-- 支出項目残高表 -->
     <div class="col-xs-12 col-sm-6 col-md-6">
-      <canvas id="canvas_loss" width="300px" height="300px"></canvas>
+      <canvas id="canvas2" width="300px" height="300px"></canvas>
       <div class="canvas-title"><%= sum_loss %></div>
     </div>
   </div>
 </div>
 
-<%= javascript_include_tag "Chart" %>
 <script>
-  $(function() {
-    // 表示用データを用意
-    var data_profit = $.parseJSON( '<%= js_params_profit.to_json().html_safe  %>' );
-    var data_loss = $.parseJSON( '<%= js_params_loss.to_json().html_safe  %>' );
+  // 表示用データを用意
+  var data_profit = $.parseJSON( '<%= js_params_profit.to_json().html_safe  %>' );
+  var data_loss = $.parseJSON( '<%= js_params_loss.to_json().html_safe  %>' );
 
-    var option = {
-      showTooltips: true,
-      onAnimationComplete: function(){ this.showTooltip(this.segments, true); },
-    };
+  function ready() {
+    // include遅延があったら再コールする
+    if ( typeof initCanvasDoughnut != "function" ) {
+      setTimeout( "ready()", 1 );
+      return;
+    }
 
-    // Canvasに描画
-    var context_profit = document.getElementById("canvas_profit").getContext( "2d" );
-    new Chart( context_profit ).Doughnut( data_profit, option );
+    // Turbolinksのせいで遷移時にreadyが発火しない
+    documentReady( initCanvasDoughnut( data_profit, data_loss ) );
+  }
 
-    var context_loss = document.getElementById("canvas_loss").getContext( "2d" );
-    new Chart( context_loss ).Doughnut( data_loss, option );
-
-    // アコーディオンの設定
-    $( ".accordion-parent" ).click(function () {
-      $( this ).attr( 'data-href' );
-    });
-
-  });
+  ready();
 </script>
