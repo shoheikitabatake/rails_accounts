@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get 'book/profit_loss_statement'
 
   devise_for :users
-  resources :users
 
   root to: 'journals#index'
 
